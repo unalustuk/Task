@@ -4,10 +4,10 @@
  *
  * @format
  */
+import './gesture-handler';
 
 import React from 'react';
 import type {PropsWithChildren} from 'react';
-import './gesture-handler';
 import {
   SafeAreaView,
   ScrollView,
@@ -43,7 +43,10 @@ function App(): React.JSX.Element {
 
   return (
     <Provider store={store}>
-      <SafeAreaView style={backgroundStyle}>
+      <SafeAreaView
+        style={{
+          flex: 1,
+        }}>
         <StatusBar
           barStyle={isDarkMode ? 'light-content' : 'dark-content'}
           backgroundColor={backgroundStyle.backgroundColor}

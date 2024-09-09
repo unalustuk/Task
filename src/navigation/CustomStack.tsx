@@ -11,7 +11,7 @@ const Stack = createNativeStackNavigator();
 export function UsersScreenNavigator() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Users" component={UsersScreen} />
+      <Stack.Screen name="UsersStack" component={UsersScreen} />
     </Stack.Navigator>
   );
 }
@@ -19,8 +19,8 @@ export function UsersScreenNavigator() {
 export function PostsScreenNavigator() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Posts" component={PostsScreen} />
-      <Stack.Screen name="Post" component={PostScreen} />
+      <Stack.Screen name="PostsStack" component={PostsScreen} />
+      <Stack.Screen name="PostStack" component={PostScreen} />
     </Stack.Navigator>
   );
 }
@@ -28,7 +28,7 @@ export function PostsScreenNavigator() {
 export function TodosScreenNavigator() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Todos" component={TodosScreen} />
+      <Stack.Screen name="TodosStack" component={TodosScreen} />
     </Stack.Navigator>
   );
 }
@@ -36,7 +36,7 @@ export function TodosScreenNavigator() {
 export function FavoritesScreenNavigator() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Favorites" component={FavoritesScreen} />
+      <Stack.Screen name="FavoritesStack" component={FavoritesScreen} />
     </Stack.Navigator>
   );
 }
