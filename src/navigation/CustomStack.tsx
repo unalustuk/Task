@@ -11,7 +11,13 @@ const Stack = createNativeStackNavigator();
 export function UsersScreenNavigator() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="UsersStack" component={UsersScreen} />
+      <Stack.Screen
+        name="UsersStack"
+        options={{
+          headerShown: false,
+        }}
+        component={UsersScreen}
+      />
     </Stack.Navigator>
   );
 }
@@ -19,7 +25,13 @@ export function UsersScreenNavigator() {
 export function PostsScreenNavigator() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="PostsStack" component={PostsScreen} />
+      <Stack.Screen
+        name="PostsStack"
+        options={{
+          headerShown: false,
+        }}
+        component={PostsScreen}
+      />
       <Stack.Screen name="PostStack" component={PostScreen} />
     </Stack.Navigator>
   );
@@ -28,7 +40,13 @@ export function PostsScreenNavigator() {
 export function TodosScreenNavigator() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="TodosStack" component={TodosScreen} />
+      <Stack.Screen
+        name="TodosStack"
+        options={{
+          headerShown: false,
+        }}
+        component={TodosScreen}
+      />
     </Stack.Navigator>
   );
 }
@@ -36,7 +54,13 @@ export function TodosScreenNavigator() {
 export function FavoritesScreenNavigator() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="FavoritesStack" component={FavoritesScreen} />
+      <Stack.Screen
+        name="FavoritesStack"
+        options={{
+          headerShown: false,
+        }}
+        component={FavoritesScreen}
+      />
     </Stack.Navigator>
   );
 }
