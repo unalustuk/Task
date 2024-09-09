@@ -3,7 +3,11 @@ import React from 'react';
 import LoginScreen from './Login/LoginScreen';
 
 export default function MainScreen() {
-  return <View></View>;
+  return (
+    <View>
+      <Text>Hello world!</Text>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({});
