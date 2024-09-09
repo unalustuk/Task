@@ -27,6 +27,7 @@ import {
 import {themes} from './src/consts/styles';
 import {Provider} from 'react-redux';
 import store from './src/store';
+import MainScreen from './src/screens/MainScreen';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -46,6 +47,7 @@ function App(): React.JSX.Element {
           barStyle={isDarkMode ? 'light-content' : 'dark-content'}
           backgroundColor={backgroundStyle.backgroundColor}
         />
+        <MainScreen />
       </SafeAreaView>
     </Provider>
   );
