@@ -25,6 +25,8 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import {themes} from './src/consts/styles';
+import {Provider} from 'react-redux';
+import store from './src/store';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -36,23 +38,16 @@ function App(): React.JSX.Element {
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
-  console.log(themes.fontFamilies.ROBOTO.regular);
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <Text
-        style={{
-          fontSize: 33,
-          color: 'black',
-        }}>
-        Hello World!
-      </Text>
-      <Text style={styles.textStyle}>Hello World!</Text>
-    </SafeAreaView>
+    <Provider store={store}>
+      <SafeAreaView style={backgroundStyle}>
+        <StatusBar
+          barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+          backgroundColor={backgroundStyle.backgroundColor}
+        />
+      </SafeAreaView>
+    </Provider>
   );
 }
 
