@@ -1,4 +1,6 @@
-export const styles: {} = {
+import {isIOS} from '../utils/platformUtil';
+
+export const themes: any = {
   colors: {
     text: {
       primary: '#374151',
@@ -59,5 +61,13 @@ export const styles: {} = {
     medium: 8,
     small: 4,
     tiny: 2,
+  },
+  fontFamilies: {
+    ROBOTO: {
+      regular: isIOS() ? 'RobotoRegular' : 'Roboto-Regular',
+    },
+    MONTSERRAT: {
+      regular: isIOS() ? 'MontserratRegular' : 'Montserrat-Regular',
+    },
   },
 };

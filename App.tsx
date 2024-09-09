@@ -24,6 +24,7 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import {themes} from './src/consts/styles';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -35,6 +36,7 @@ function App(): React.JSX.Element {
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
+  console.log(themes.fontFamilies.ROBOTO.regular);
 
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -42,11 +44,24 @@ function App(): React.JSX.Element {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <Text> Hello World!</Text>
+      <Text
+        style={{
+          fontSize: 33,
+          color: 'black',
+        }}>
+        Hello World!
+      </Text>
+      <Text style={styles.textStyle}>Hello World!</Text>
     </SafeAreaView>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  textStyle: {
+    fontSize: 33,
+    color: 'black',
+    fontFamily: themes.fontFamilies.MONTSERRAT.regular,
+  },
+});
 
 export default App;
