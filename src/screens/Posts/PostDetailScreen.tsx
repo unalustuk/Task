@@ -1,8 +1,14 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {ThunkDispatch} from '@reduxjs/toolkit';
 import React, {useEffect} from 'react';
 import {fetchComments} from '../../store/postDetailSlice';
+import {themes} from '../../consts/styles';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '../../utils/metrics';
 interface PostScreenProps {
   route: any;
 }
@@ -31,12 +37,42 @@ export default function PostDetailScreen({route}: PostScreenProps) {
     fetchPostsHandler();
   }, [dispatch]);
 
-  console.log(postDetail);
+  // console.log(postDetail);
   return (
-    <View>
-      <Text>{postId}</Text>
-    </View>
+    <ScrollView style={styles.container}>
+      <Text style={styles.title}>{post[0].title}</Text>
+      <Text style={styles.body}>{post[0].body}</Text>
+      <View style={styles.commentsContainer}>
+        <Text style={styles.commentsTitle}>Comments</Text>
+      </View>
+    </ScrollView>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: themes.colors.text.white,
+    padding: horizontalScale(themes.paddings.large),
+  },
+  title: {
+    fontFamily: themes.fontFamilies.ROBOTO.medium,
+    color: themes.colors.text.primary,
+    fontSize: moderateScale(themes.fontSizes.medium),
+    marginBottom: verticalScale(themes.margins.xlarge),
+  },
+  body: {
+    fontFamily: themes.fontFamilies.ROBOTO.regular,
+    color: themes.colors.text.primary,
+    fontSize: moderateScale(themes.fontSizes.normal),
+  },
+
+  commentsContainer: {
+    marginVertical: verticalScale(themes.margins.xlarge),
+  },
+  commentsTitle: {
+    fontFamily: themes.fontFamilies.ROBOTO.bold,
+    color: themes.colors.text.primary,
+    fontSize: moderateScale(themes.fontSizes.xlarge),
+    marginBottom: verticalScale(themes.margins.xlarge),
+  },
+});
