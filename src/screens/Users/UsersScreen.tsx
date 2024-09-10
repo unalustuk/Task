@@ -20,7 +20,7 @@ export default function UsersScreen() {
   //one time fetch users when screen is rendered
   useEffect(() => {
     fetchUsersHandler();
-  }, []);
+  }, [dispatch]);
 
   return (
     <View style={styles.container}>

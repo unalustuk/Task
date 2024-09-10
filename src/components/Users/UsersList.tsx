@@ -1,6 +1,8 @@
 import {FlatList, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import UserListItem from './UserListItem';
+import {verticalScale} from '../../utils/metrics';
+import {themes} from '../../consts/styles';
 
 interface UserListProps {
   users: [any];
@@ -10,6 +12,7 @@ export default function UsersList({users}: UserListProps) {
   console.log(users);
   return (
     <FlatList
+      style={styles.flatList}
       data={users}
       renderItem={({item}) => (
         <UserListItem
@@ -28,4 +31,8 @@ export default function UsersList({users}: UserListProps) {
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  flatList: {
+    marginVertical: verticalScale(themes.margins.xlarge),
+  },
+});

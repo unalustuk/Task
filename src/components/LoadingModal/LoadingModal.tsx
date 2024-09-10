@@ -16,11 +16,7 @@ export default function LoadingModal({isModal}: LoadingModalProps) {
       </View>
     </Modal>
   ) : (
-    <View
-      style={[
-        styles.centeredView,
-        {backgroundColor: themes.colors.background.primary},
-      ]}>
+    <View style={[styles.centeredView]}>
       <ActivityIndicator
         size="large"
         color={themes.colors.foreground.primary}
@@ -34,6 +30,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: themes.colors.foreground.quinary,
+    backgroundColor: themes.colors.text.white,
   },
 });
