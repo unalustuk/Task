@@ -1,28 +1,31 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import LoadingModal from '../../components/LoadingModal/LoadingModal';
 import {themes} from '../../consts/styles';
 import UserListItem from '../../components/Users/UserListItem';
+import {useDispatch, useSelector} from 'react-redux';
+import {ThunkDispatch} from '@reduxjs/toolkit';
+
+import {fetchUsers} from '../../store/usersSlice';
+import UsersList from '../../components/Users/UsersList';
 
 export default function UsersScreen() {
+  const users = useSelector(state => state.usersSlice);
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+
+  const fetchUsersHandler = () => {
+    dispatch(fetchUsers());
+  };
+
+  //one time fetch users when screen is rendered
+  useEffect(() => {
+    fetchUsersHandler();
+  }, []);
+  console.log(users);
+
   return (
     <View style={styles.container}>
-      {/* <LoadingModal isModal={false} /> */}
-      <UserListItem
-        photo={'https://picsum.photos/200'}
-        name="Jhon Doe"
-        email="jhon@lorem.com"
-        phoneNumber="+905556667777"
-        company="N2Mobil Takip Sistemleri A.Ş. "
-        address="Timko sokak no: 2 Yenimahalle / Ankara"
-        website="jhon.doe.com"
-      />
-      <UserListItem
-        photo={''}
-        name="Jhon Doe"
-        email="jhon@lorem.com"
-        phoneNumber="+905556667777"
-      />
+      {users.loading ? <LoadingModal isModal={false} /> : <UsersList />}
     </View>
   );
 }
