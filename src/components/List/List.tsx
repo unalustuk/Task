@@ -1,6 +1,5 @@
 import {FlatList, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import UserListItem from '../Users/UserListItem';
 import {horizontalScale, verticalScale} from '../../utils/metrics';
 import {themes} from '../../consts/styles';
 
