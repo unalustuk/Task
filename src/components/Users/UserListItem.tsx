@@ -25,6 +25,7 @@ interface UserListItemProps {
   company: string;
   address: string;
   website: string;
+  id: number;
 }
 
 export default function UserListItem({
@@ -35,12 +36,12 @@ export default function UserListItem({
   company,
   address,
   website,
+  id,
 }: UserListItemProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   function modalHandler() {
     setIsModalOpen(state => !state);
-    console.log('clis');
   }
   return (
     <>

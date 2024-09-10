@@ -1,11 +1,30 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {FlatList, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import UserListItem from './UserListItem';
 
-export default function UsersList() {
+interface UserListProps {
+  users: [any];
+}
+
+export default function UsersList({users}: UserListProps) {
+  console.log(users);
   return (
-    <View>
-      <Text>UsersList</Text>
-    </View>
+    <FlatList
+      data={users}
+      renderItem={({item}) => (
+        <UserListItem
+          name={`${item.name}`}
+          address={`${item.address.suite} ${item.address.street} ${item.address.city}`}
+          company={item.company.name}
+          email={item.email}
+          phoneNumber={item.phone}
+          photo={item?.pic}
+          website={item.website}
+          id={item.id}
+        />
+      )}
+      keyExtractor={item => item.id}
+    />
   );
 }
 

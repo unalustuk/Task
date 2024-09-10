@@ -21,11 +21,14 @@ export default function UsersScreen() {
   useEffect(() => {
     fetchUsersHandler();
   }, []);
-  console.log(users);
 
   return (
     <View style={styles.container}>
-      {users.loading ? <LoadingModal isModal={false} /> : <UsersList />}
+      {users.loading ? (
+        <LoadingModal isModal={false} />
+      ) : (
+        <UsersList users={users.data} />
+      )}
     </View>
   );
 }
