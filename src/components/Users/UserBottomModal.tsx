@@ -38,8 +38,7 @@ export default function UserBottomModal({
       animationType="fade"
       transparent={true}
       statusBarTranslucent={true}
-      visible={isModalOpen}
-      onRequestClose={modalHandler}>
+      visible={isModalOpen}>
       <Pressable
         onPress={modalHandler}
         style={{
@@ -47,8 +46,11 @@ export default function UserBottomModal({
           flex: 1,
         }}></Pressable>
       {/* Bottom View */}
-
-      <View style={styles.bottomContainer}>
+      <View
+        style={[
+          styles.bottomContainer,
+          {backgroundColor: 'rgba(255, 255, 255, 1)'},
+        ]}>
         <View style={styles.topContainer}>
           <Text style={styles.name}>{name}</Text>
           <Pressable onPress={favoriteHandler} style={styles.favorite}>
@@ -104,13 +106,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: themes.colors.foreground.quinary,
-    opacity: 0.3,
   },
   bottomContainer: {
-    backgroundColor: themes.colors.text.white,
-
-    marginVertical: verticalScale(themes.margins.xlarge),
-    marginHorizontal: horizontalScale(themes.margins.large),
+    paddingVertical: verticalScale(themes.margins.xlarge),
+    paddingHorizontal: horizontalScale(themes.margins.large),
   },
 
   topContainer: {
