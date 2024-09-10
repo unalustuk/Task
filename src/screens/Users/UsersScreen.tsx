@@ -2,7 +2,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import LoadingModal from '../../components/LoadingModal/LoadingModal';
 import {themes} from '../../consts/styles';
-import UserListItem from '../../components/UserListItem';
+import UserListItem from '../../components/Users/UserListItem';
 
 export default function UsersScreen() {
   return (
@@ -13,6 +13,9 @@ export default function UsersScreen() {
         name="Jhon Doe"
         email="jhon@lorem.com"
         phoneNumber="+905556667777"
+        company="N2Mobil Takip Sistemleri A.Ş. "
+        address="Timko sokak no: 2 Yenimahalle / Ankara"
+        website="jhon.doe.com"
       />
       <UserListItem
         photo={''}

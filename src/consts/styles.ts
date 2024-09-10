@@ -66,6 +66,10 @@ export const themes: any = {
   fontFamilies: {
     ROBOTO: {
       regular: isIOS() ? 'RobotoRegular' : 'Roboto-Regular',
+      bold: isIOS() ? 'RobotoBold' : 'Roboto-Bold',
+      light: isIOS() ? 'RobotoLight' : 'Roboto-Light',
+      medium: isIOS() ? 'RobotoMedium' : 'Roboto-Medium',
+      thin: isIOS() ? 'RobotoThin' : 'Roboto-Thin',
     },
     MONTSERRAT: {
       regular: isIOS() ? 'MontserratRegular' : 'Montserrat-Regular',
