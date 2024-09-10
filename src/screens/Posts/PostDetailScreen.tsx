@@ -2,7 +2,7 @@ import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {ThunkDispatch} from '@reduxjs/toolkit';
 import React, {useEffect} from 'react';
-import {fetchComments} from '../../store/postDetailSlice';
+import {fetchComments, postsDetailActions} from '../../store/postDetailSlice';
 import {themes} from '../../consts/styles';
 import {
   horizontalScale,
@@ -11,6 +11,8 @@ import {
 } from '../../utils/metrics';
 import CommentListItem from '../../components/Comments/CommentListItem';
 import List from '../../components/List/List';
+import ErrorHandler from '../../components/Error/ErrorHandler';
+import LoadingModal from '../../components/LoadingModal/LoadingModal';
 interface PostScreenProps {
   route: any;
 }
@@ -36,38 +38,49 @@ export default function PostDetailScreen({route}: PostScreenProps) {
 
   //one time fetch users when screen is rendered
   useEffect(() => {
+    dispatch(postsDetailActions.setInitialState());
     fetchPostsHandler();
   }, [dispatch]);
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.title}>{post[0].title}</Text>
-      <Text style={styles.body}>{post[0].body}</Text>
-      <View style={styles.commentsContainer}>
-        <Text style={styles.commentsTitle}>Comments</Text>
-        <List
-          removePaddingHorizontal={true}
-          data={postDetail.data}
-          renderItem={({item}: any) => (
-            <CommentListItem
-              photo={
-                Math.floor(Math.random() * 2) + 1 === 1
-                  ? 'https://fastly.picsum.photos/id/579/200/200.jpg?hmac=23fWj_34nrlHUFFsNp_a49abuuXPMHAqJt_DAj3ARPQ'
-                  : ''
-              }
-              body={item.body}
-              name={item.name}
-              id={item.id}
+      {postDetail.loading ? (
+        <LoadingModal isModal={false} />
+      ) : !posts.data || posts.error ? (
+        <ErrorHandler />
+      ) : (
+        <>
+          <Text style={styles.title}>{post[0].title}</Text>
+          <Text style={styles.body}>{post[0].body}</Text>
+          <View style={styles.commentsContainer}>
+            <Text style={styles.commentsTitle}>Comments</Text>
+            <List
+              removePaddingHorizontal={true}
+              data={postDetail.data}
+              renderItem={({item}: any) => (
+                <CommentListItem
+                  photo={
+                    Math.floor(Math.random() * 2) + 1 === 1
+                      ? 'https://fastly.picsum.photos/id/579/200/200.jpg?hmac=23fWj_34nrlHUFFsNp_a49abuuXPMHAqJt_DAj3ARPQ'
+                      : ''
+                  }
+                  body={item.body}
+                  name={item.name}
+                  id={item.id}
+                />
+              )}
             />
-          )}
-        />
-      </View>
+          </View>
+        </>
+      )}
+      {/*  */}
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     backgroundColor: themes.colors.text.white,
     padding: horizontalScale(themes.paddings.large),
   },
@@ -85,6 +98,7 @@ const styles = StyleSheet.create({
   },
 
   commentsContainer: {
+    flex: 1,
     marginVertical: verticalScale(themes.margins.xlarge),
   },
   commentsTitle: {

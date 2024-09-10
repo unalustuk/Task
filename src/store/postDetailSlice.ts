@@ -18,7 +18,14 @@ const initialState = {
 const postDetailSlice = createSlice({
   name: 'postDetailSlice',
   initialState,
-  reducers: {},
+  reducers: {
+    setInitialState(state, action) {
+      state.data = null;
+      state.loading = false;
+      state.refreshing = false;
+      state.error = '';
+    },
+  },
   extraReducers: builder => {
     builder.addCase(fetchComments.pending, (state, action) => {
       state.loading = true;
