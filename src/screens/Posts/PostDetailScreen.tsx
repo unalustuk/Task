@@ -9,6 +9,8 @@ import {
   moderateScale,
   verticalScale,
 } from '../../utils/metrics';
+import CommentListItem from '../../components/Comments/CommentListItem';
+import List from '../../components/List/List';
 interface PostScreenProps {
   route: any;
 }
@@ -37,13 +39,28 @@ export default function PostDetailScreen({route}: PostScreenProps) {
     fetchPostsHandler();
   }, [dispatch]);
 
-  // console.log(postDetail);
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.title}>{post[0].title}</Text>
       <Text style={styles.body}>{post[0].body}</Text>
       <View style={styles.commentsContainer}>
         <Text style={styles.commentsTitle}>Comments</Text>
+        <List
+          removePaddingHorizontal={true}
+          data={postDetail.data}
+          renderItem={({item}: any) => (
+            <CommentListItem
+              photo={
+                Math.floor(Math.random() * 2) + 1 === 1
+                  ? 'https://fastly.picsum.photos/id/579/200/200.jpg?hmac=23fWj_34nrlHUFFsNp_a49abuuXPMHAqJt_DAj3ARPQ'
+                  : ''
+              }
+              body={item.body}
+              name={item.name}
+              id={item.id}
+            />
+          )}
+        />
       </View>
     </ScrollView>
   );
@@ -62,8 +79,9 @@ const styles = StyleSheet.create({
   },
   body: {
     fontFamily: themes.fontFamilies.ROBOTO.regular,
-    color: themes.colors.text.primary,
+    color: 'black',
     fontSize: moderateScale(themes.fontSizes.normal),
+    lineHeight: moderateScale(20),
   },
 
   commentsContainer: {
