@@ -51,7 +51,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: themes.colors.text.white,
-    paddingHorizontal: horizontalScale(themes.paddings.xlarge),
-    paddingVertical: horizontalScale(themes.paddings.xlarge),
   },
 });

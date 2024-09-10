@@ -1,7 +1,7 @@
 import {FlatList, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import UserListItem from '../Users/UserListItem';
-import {verticalScale} from '../../utils/metrics';
+import {horizontalScale, verticalScale} from '../../utils/metrics';
 import {themes} from '../../consts/styles';
 
 interface ListProps {
@@ -23,6 +23,7 @@ export default function List({data, renderItem}: ListProps) {
 
 const styles = StyleSheet.create({
   flatList: {
-    marginVertical: verticalScale(themes.margins.xlarge),
+    paddingVertical: verticalScale(themes.margins.xlarge),
+    paddingHorizontal: horizontalScale(themes.paddings.xlarge),
   },
 });

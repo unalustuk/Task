@@ -9,6 +9,7 @@ import {ThunkDispatch} from '@reduxjs/toolkit';
 import {fetchUsers} from '../../store/usersSlice';
 import ErrorHandler from '../../components/Error/ErrorHandler';
 import List from '../../components/List/List';
+import {horizontalScale} from '../../utils/metrics';
 
 export default function UsersScreen() {
   const users = useSelector(state => state.usersSlice);
@@ -55,6 +56,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: themes.colors.text.white,
-    paddingHorizontal: 12,
   },
 });
