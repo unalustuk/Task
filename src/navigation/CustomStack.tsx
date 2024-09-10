@@ -3,9 +3,10 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import UsersScreen from '../screens/Users/UsersScreen';
 import PostsScreen from '../screens/Posts/PostsScreen';
-import PostScreen from '../screens/Posts/PostScreen';
+import PostScreen from '../screens/Posts/PostDetailScreen';
 import TodosScreen from '../screens/Todos/TodosScreen';
 import FavoritesScreen from '../screens/Favorites/FavoritesScreen';
+import PostDetailScreen from '../screens/Posts/PostDetailScreen';
 const Stack = createNativeStackNavigator();
 
 export function UsersScreenNavigator() {
@@ -32,7 +33,7 @@ export function PostsScreenNavigator() {
         }}
         component={PostsScreen}
       />
-      <Stack.Screen name="PostStack" component={PostScreen} />
+      <Stack.Screen name="PostDetailStack" component={PostDetailScreen} />
     </Stack.Navigator>
   );
 }

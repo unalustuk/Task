@@ -10,7 +10,12 @@ import LoadingModal from '../../components/LoadingModal/LoadingModal';
 import ErrorHandler from '../../components/Error/ErrorHandler';
 import List from '../../components/List/List';
 
-export default function PostsScreen() {
+interface PostScreenProps {
+  route: any;
+  navigation: any;
+}
+
+export default function PostsScreen({route, navigation}: PostScreenProps) {
   const posts = useSelector(state => state.postsSlice);
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
 
@@ -18,11 +23,17 @@ export default function PostsScreen() {
     dispatch(fetchPosts());
   };
 
+  const navigationHandler = (postId: any) => {
+    navigation.navigate('PostDetailStack', {
+      postId: postId,
+    });
+  };
+
   //one time fetch users when screen is rendered
   useEffect(() => {
     fetchPostsHandler();
   }, [dispatch]);
-  console.log(posts);
+  // console.log(posts);
 
   return (
     <View style={styles.container}>
@@ -38,7 +49,8 @@ export default function PostsScreen() {
               body={item.body}
               title={item.title}
               userId={item.userId}
-              postId={item.postId}
+              postId={item.id}
+              navigationHandler={navigationHandler}
             />
           )}
         />

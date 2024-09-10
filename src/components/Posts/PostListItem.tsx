@@ -13,7 +13,7 @@ interface PostListItemProps {
   body: string;
   postId: number;
   userId: number;
-  navigationHandler: () => void;
+  navigationHandler: (postId: any) => void;
 }
 
 export default function PostListItem({
@@ -35,7 +35,10 @@ export default function PostListItem({
             opacity: pressed ? 0.6 : 1,
           },
           styles.bottomContainer,
-        ]}>
+        ]}
+        onPress={() => {
+          navigationHandler(postId);
+        }}>
         <Text style={styles.bottomContainerText}>See More</Text>
         <ArrowRight width={horizontalScale(32)} height={horizontalScale(32)} />
       </Pressable>
