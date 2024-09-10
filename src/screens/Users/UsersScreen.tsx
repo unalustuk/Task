@@ -8,6 +8,7 @@ import {ThunkDispatch} from '@reduxjs/toolkit';
 
 import {fetchUsers} from '../../store/usersSlice';
 import UsersList from '../../components/Users/UsersList';
+import ErrorHandler from '../../components/Error/ErrorHandler';
 
 export default function UsersScreen() {
   const users = useSelector(state => state.usersSlice);
@@ -21,11 +22,14 @@ export default function UsersScreen() {
   useEffect(() => {
     fetchUsersHandler();
   }, [dispatch]);
+  console.log(users);
 
   return (
     <View style={styles.container}>
       {users.loading ? (
         <LoadingModal isModal={false} />
+      ) : !users.data || users.error ? (
+        <ErrorHandler />
       ) : (
         <UsersList users={users.data} />
       )}
