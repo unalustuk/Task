@@ -1,10 +1,26 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {themes} from '../../consts/styles';
 import PostListItem from '../../components/Posts/PostListItem';
 import {horizontalScale} from '../../utils/metrics';
+import {useDispatch, useSelector} from 'react-redux';
+import {ThunkDispatch} from '@reduxjs/toolkit';
+import {fetchPosts} from '../../store/postsSlice';
 
 export default function PostsScreen() {
+  const posts = useSelector(state => state.postsSlice);
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+
+  const fetchPostsHandler = () => {
+    dispatch(fetchPosts());
+  };
+
+  //one time fetch users when screen is rendered
+  useEffect(() => {
+    fetchPostsHandler();
+  }, [dispatch]);
+  console.log(posts);
+
   return (
     <View style={styles.container}>
       <PostListItem
