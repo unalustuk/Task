@@ -6,9 +6,12 @@ import {
   verticalScale,
 } from '../../utils/metrics';
 
+// icons imports
 import Location from '../../assets/icons/location.svg';
 import Company from '../../assets/icons/company.svg';
 import Website from '../../assets/icons/website.svg';
+import FavEmpty from '../../assets/icons/favEmpty.svg';
+import FavFull from '../../assets/icons/favFull.svg';
 
 interface UserBottomModalProps {
   name: string;
@@ -17,6 +20,8 @@ interface UserBottomModalProps {
   website: string;
   isModalOpen: boolean;
   modalHandler: () => void;
+  isFavorite: boolean;
+  favoriteHandler: () => void;
 }
 export default function UserBottomModal({
   name,
@@ -25,6 +30,8 @@ export default function UserBottomModal({
   website,
   isModalOpen,
   modalHandler,
+  isFavorite,
+  favoriteHandler,
 }: UserBottomModalProps) {
   return (
     <Modal
@@ -42,7 +49,17 @@ export default function UserBottomModal({
       {/* Bottom View */}
 
       <View style={styles.bottomContainer}>
-        <Text style={styles.name}>{name}</Text>
+        <View style={styles.topContainer}>
+          <Text style={styles.name}>{name}</Text>
+          <Pressable onPress={favoriteHandler} style={styles.favorite}>
+            {/*  */}
+            {isFavorite ? (
+              <FavFull width={verticalScale(30)} height={verticalScale(30)} />
+            ) : (
+              <FavEmpty width={verticalScale(30)} height={verticalScale(30)} />
+            )}
+          </Pressable>
+        </View>
 
         <View>
           <View style={styles.infoContainer}>
@@ -63,7 +80,7 @@ export default function UserBottomModal({
               />
               <Text style={styles.titleText}>Firma</Text>
             </View>
-            <Text style={styles.info}>{address}</Text>
+            <Text style={styles.info}>{company}</Text>
           </View>
           <View style={styles.infoContainer}>
             <View style={styles.title}>
@@ -73,7 +90,7 @@ export default function UserBottomModal({
               />
               <Text style={styles.titleText}>Website</Text>
             </View>
-            <Text style={styles.info}>{address}</Text>
+            <Text style={styles.info}>{website}</Text>
           </View>
         </View>
       </View>
@@ -96,11 +113,19 @@ const styles = StyleSheet.create({
     marginHorizontal: horizontalScale(themes.margins.large),
   },
 
+  topContainer: {
+    flexDirection: 'row',
+    width: '100%',
+  },
+
   name: {
     color: themes.colors.text.primary,
     fontFamily: themes.fontFamilies.ROBOTO.bold,
     fontSize: moderateScale(themes.fontSizes.xlarge),
     marginBottom: verticalScale(themes.margins.large),
+  },
+  favorite: {
+    marginLeft: 'auto',
   },
   infoContainer: {
     padding: verticalScale(themes.margins.medium),
