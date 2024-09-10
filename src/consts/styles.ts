@@ -27,6 +27,7 @@ export const themes: any = {
       secondary: '#E5E7EB',
       active: '#374151',
       disabled: '#E5E7EB',
+      theme: 'rgba(0, 0, 0, 0.12)',
     },
   },
   fontSizes: {
