@@ -11,12 +11,16 @@ import ArrowRight from '../../assets/icons/arrowRight.svg';
 interface PostListItemProps {
   title: string;
   body: string;
+  postId: number;
+  userId: number;
   navigationHandler: () => void;
 }
 
 export default function PostListItem({
   title,
   body,
+  postId,
+  userId,
   navigationHandler,
 }: PostListItemProps) {
   return (

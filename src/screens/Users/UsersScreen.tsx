@@ -7,8 +7,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import {ThunkDispatch} from '@reduxjs/toolkit';
 
 import {fetchUsers} from '../../store/usersSlice';
-import UsersList from '../../components/Users/UsersList';
 import ErrorHandler from '../../components/Error/ErrorHandler';
+import List from '../../components/List/List';
 
 export default function UsersScreen() {
   const users = useSelector(state => state.usersSlice);
@@ -31,7 +31,21 @@ export default function UsersScreen() {
       ) : !users.data || users.error ? (
         <ErrorHandler />
       ) : (
-        <UsersList users={users.data} />
+        <List
+          data={users.data}
+          renderItem={({item}: any) => (
+            <UserListItem
+              name={`${item.name}`}
+              address={`${item.address.suite} ${item.address.street} ${item.address.city}`}
+              company={item.company.name}
+              email={item.email}
+              phoneNumber={item.phone}
+              photo={item?.pic}
+              website={item.website}
+              id={item.id}
+            />
+          )}
+        />
       )}
     </View>
   );
