@@ -7,14 +7,16 @@ interface ListProps {
   data: [any];
   renderItem: any;
   removePaddingHorizontal: boolean;
+  ListFooterComponent: any;
 }
 
 export default function List({
   data,
   renderItem,
   removePaddingHorizontal,
+  ListFooterComponent,
 }: ListProps) {
-  console.log(data);
+  // console.log(data);
 
   return (
     <FlatList
@@ -28,6 +30,7 @@ export default function List({
       data={data}
       renderItem={renderItem}
       keyExtractor={item => item.id}
+      ListFooterComponent={ListFooterComponent}
     />
   );
 }

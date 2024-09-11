@@ -1,5 +1,5 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import LoadingModal from '../../components/LoadingModal/LoadingModal';
 import {themes} from '../../consts/styles';
 import UserListItem from '../../components/Users/UserListItem';
@@ -10,11 +10,19 @@ import {fetchUsers} from '../../store/usersSlice';
 import ErrorHandler from '../../components/Error/ErrorHandler';
 import List from '../../components/List/List';
 import {horizontalScale} from '../../utils/metrics';
+import Pagination from '../../components/Pagination/Pagination';
 
 export default function UsersScreen() {
   const users = useSelector(state => state.usersSlice);
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
 
+  const [pageNumber, setPageNumber] = useState(1);
+
+  const changePageHandler = (number: number) => {
+    setPageNumber(number);
+  };
+
+  console.log(pageNumber);
   const fetchUsersHandler = () => {
     dispatch(fetchUsers());
   };
@@ -47,6 +55,13 @@ export default function UsersScreen() {
               id={item.id}
             />
           )}
+          ListFooterComponent={
+            <Pagination
+              changePageHandler={changePageHandler}
+              pageNumber={pageNumber}
+              dataLength={users.data.length}
+            />
+          }
         />
       )}
     </View>

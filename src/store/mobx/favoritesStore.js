@@ -31,14 +31,14 @@ class Favorites {
 
   getFavorites(users) {
     this.favorites = [...this.favorites, ...users];
-    console.log('getfavorites');
-    console.log(this.favorites);
+    // console.log('getfavorites');
+    // console.log(this.favorites);
   }
 
   removeFavorite(userId) {
     this.favorites = this.favorites.filter(user => user.id !== userId);
-    console.log('favorites');
-    console.log(this.favorites);
+    // console.log('favorites');
+    // console.log(this.favorites);
     this.storeFavoritesToLocalStorage(JSON.stringify(this.favorites));
   }
 
