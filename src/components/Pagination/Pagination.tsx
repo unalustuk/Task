@@ -26,6 +26,7 @@ export default function Pagination({
   for (let i = 0; i < pages; i++) {
     paginationCells.push(
       <Pressable
+        key={i + 1}
         style={({pressed}) => [
           styles.pageButton,
           {
