@@ -24,6 +24,7 @@ export default function List({
           paddingHorizontal: horizontalScale(themes.paddings.xlarge),
         },
       ]}
+      contentContainerStyle={{paddingBottom: themes.paddings.xlarge}}
       data={data}
       renderItem={renderItem}
       keyExtractor={item => item.id}
@@ -33,6 +34,7 @@ export default function List({
 
 const styles = StyleSheet.create({
   flatList: {
+    flex: 1,
     paddingVertical: verticalScale(themes.margins.xlarge),
   },
 });

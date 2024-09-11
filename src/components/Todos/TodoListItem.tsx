@@ -6,31 +6,40 @@ import {moderateScale, verticalScale} from '../../utils/metrics';
 
 interface TodoListItemProps {
   isChecked: boolean;
-  checkHandler: () => void;
   todo: string;
   todoId: number;
 }
 
-export default function TodoListItem({todo, todoId}: TodoListItemProps) {
-  const [isChecked, setIsChecked] = useState(false);
+export default function TodoListItem({
+  todo,
+  todoId,
+  isChecked,
+}: TodoListItemProps) {
+  const [isCheckedState, setIsCheckedState] = useState(isChecked);
 
   const checkHandler = () => {
-    setIsChecked(state => !state);
+    setIsCheckedState(state => !state);
   };
 
   return (
     <View style={styles.container}>
-      <CheckMark isChecked={isChecked} checkHandler={checkHandler} />
-      <Text style={styles.body}>{todo}</Text>
+      <CheckMark isChecked={isCheckedState} checkHandler={checkHandler} />
+      <View style={styles.textContainer}>
+        <Text style={styles.body}>{todo}</Text>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    alignItems: 'center',
     flexDirection: 'row',
     padding: verticalScale(themes.paddings.small),
-    marginVertical: verticalScale(themes.margins.medium),
+    marginVertical: verticalScale(themes.margins.small),
+  },
+  textContainer: {
+    flex: 1,
   },
   body: {
     fontFamily: themes.fontFamilies.ROBOTO.regular,
