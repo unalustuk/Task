@@ -3,11 +3,11 @@ import React from 'react';
 import {themes} from '../../consts/styles';
 import {moderateScale} from '../../utils/metrics';
 
-export default function ErrorHandler() {
+export default function ErrorHandler({children}: string) {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>
-        Sayfa yüklenirken bir hata ile karşılaşıldı.
+        {children ? children : 'Sayfa yüklenirken bir hata ile karşılaşıldı.'}
       </Text>
     </View>
   );
