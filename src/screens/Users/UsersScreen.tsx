@@ -58,6 +58,20 @@ export default function UsersScreen({navigation}: UsersScreenProps) {
   }
   console.log(search);
 
+  //if displayed users name, email or phone includes search value render that users
+  let searchedData: any;
+  if (search.value !== '') {
+    searchedData = paginationData.filter(item => {
+      if (
+        item.name.toLowerCase().includes(search.value.toLowerCase()) ||
+        item.email.toLowerCase().includes(search.value.toLowerCase()) ||
+        item.phone.toLowerCase().includes(search.value.toLowerCase())
+      ) {
+        return item;
+      }
+    });
+  }
+  console.log(searchedData);
   //search bar added to top
   navigation.getParent().setOptions({
     headerTitle: () => (
@@ -77,7 +91,7 @@ export default function UsersScreen({navigation}: UsersScreenProps) {
         <ErrorHandler />
       ) : (
         <List
-          data={paginationData}
+          data={search.value !== '' ? searchedData : paginationData}
           renderItem={({item}: any) => (
             <UserListItem
               user={item}

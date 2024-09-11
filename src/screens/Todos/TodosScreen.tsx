@@ -10,8 +10,12 @@ import ErrorHandler from '../../components/Error/ErrorHandler';
 import List from '../../components/List/List';
 import {fetchTodos} from '../../store/todosSlice';
 import Pagination from '../../components/Pagination/Pagination';
-
-export default function TodosScreen() {
+import SearchBar from '../../components/Inputs/SearchBar';
+interface TodosScreenProps {
+  route: any;
+  navigation: any;
+}
+export default function TodosScreen({navigation}: TodosScreenProps) {
   // checking todos not changing state of todos
 
   const todos = useSelector(state => state.todosSlice);
@@ -42,6 +46,42 @@ export default function TodosScreen() {
   }, [dispatch]);
   console.log(todos);
 
+  // search input values
+
+  const [search, setSearch] = useState({
+    value: '',
+  });
+
+  function updateInputValueHandler(inputType: string, enteredValue: string) {
+    switch (inputType) {
+      case 'search':
+        setSearch(state => ({...state, value: enteredValue}));
+        break;
+    }
+  }
+  console.log(search);
+
+  //if displayed users name, email or phone includes search value render that users
+  let searchedData: any;
+  if (search.value !== '') {
+    searchedData = paginationData.filter(item => {
+      if (item.title.toLowerCase().includes(search.value.toLowerCase())) {
+        return item;
+      }
+    });
+  }
+  console.log(searchedData);
+  //search bar added to top
+  navigation.getParent().setOptions({
+    headerTitle: () => (
+      <SearchBar
+        onUpdateValue={updateInputValueHandler}
+        value={search}
+        placeholder="Gönderi ara"
+      />
+    ),
+  });
+
   return (
     <View style={styles.container}>
       {todos.loading ? (
@@ -51,7 +91,7 @@ export default function TodosScreen() {
       ) : (
         <List
           removePaddingHorizontal={false}
-          data={paginationData}
+          data={search.value !== '' ? searchedData : paginationData}
           renderItem={({item}: any) => (
             <TodoListItem
               todo={item.title}

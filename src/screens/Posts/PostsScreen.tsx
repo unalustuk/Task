@@ -10,6 +10,7 @@ import LoadingModal from '../../components/LoadingModal/LoadingModal';
 import ErrorHandler from '../../components/Error/ErrorHandler';
 import List from '../../components/List/List';
 import Pagination from '../../components/Pagination/Pagination';
+import SearchBar from '../../components/Inputs/SearchBar';
 
 interface PostScreenProps {
   route: any;
@@ -52,6 +53,45 @@ export default function PostsScreen({route, navigation}: PostScreenProps) {
   }, [dispatch]);
   // console.log(posts);
 
+  // search input values
+
+  const [search, setSearch] = useState({
+    value: '',
+  });
+
+  function updateInputValueHandler(inputType: string, enteredValue: string) {
+    switch (inputType) {
+      case 'search':
+        setSearch(state => ({...state, value: enteredValue}));
+        break;
+    }
+  }
+  console.log(search);
+
+  //if displayed users name, email or phone includes search value render that users
+  let searchedData: any;
+  if (search.value !== '') {
+    searchedData = paginationData.filter(item => {
+      if (
+        item.title.toLowerCase().includes(search.value.toLowerCase()) ||
+        item.body.toLowerCase().includes(search.value.toLowerCase())
+      ) {
+        return item;
+      }
+    });
+  }
+  console.log(searchedData);
+  //search bar added to top
+  navigation.getParent().setOptions({
+    headerTitle: () => (
+      <SearchBar
+        onUpdateValue={updateInputValueHandler}
+        value={search}
+        placeholder="Gönderi ara"
+      />
+    ),
+  });
+
   return (
     <View style={styles.container}>
       {posts.loading ? (
@@ -60,7 +100,7 @@ export default function PostsScreen({route, navigation}: PostScreenProps) {
         <ErrorHandler />
       ) : (
         <List
-          data={paginationData}
+          data={search.value !== '' ? searchedData : paginationData}
           renderItem={({item}: any) => (
             <PostListItem
               body={item.body}

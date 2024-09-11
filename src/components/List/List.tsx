@@ -26,11 +26,19 @@ export default function List({
           paddingHorizontal: horizontalScale(themes.paddings.xlarge),
         },
       ]}
-      contentContainerStyle={{paddingBottom: themes.paddings.xlarge}}
+      contentContainerStyle={{
+        paddingBottom: themes.paddings.xlarge,
+        flexGrow: 1,
+      }}
       data={data}
       renderItem={renderItem}
       keyExtractor={item => item.id}
       ListFooterComponent={ListFooterComponent}
+      ListFooterComponentStyle={{
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'flex-end',
+      }}
     />
   );
 }
