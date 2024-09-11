@@ -1,7 +1,7 @@
 import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {ThunkDispatch} from '@reduxjs/toolkit';
-import React, {useEffect} from 'react';
+import React, {useEffect, useLayoutEffect} from 'react';
 import {fetchComments, postsDetailActions} from '../../store/postDetailSlice';
 import {themes} from '../../consts/styles';
 import {
@@ -13,21 +13,45 @@ import CommentListItem from '../../components/Comments/CommentListItem';
 import List from '../../components/List/List';
 import ErrorHandler from '../../components/Error/ErrorHandler';
 import LoadingModal from '../../components/LoadingModal/LoadingModal';
+import {useNavigation} from '@react-navigation/native';
 interface PostScreenProps {
   route: any;
+  navigation: any;
 }
 
-export default function PostDetailScreen({route}: PostScreenProps) {
+export default function PostDetailScreen({route, navigation}: PostScreenProps) {
+  // remove parents navigator when navigate to this screen
+  useLayoutEffect(() => {
+    if (!navigation || !route) return;
+
+    // Get parent by id
+    const drawerNavigator = navigation.getParent('Drawer');
+
+    if (drawerNavigator) {
+      if (route.name === 'PostDetailStack') {
+        drawerNavigator.setOptions({
+          headerShown: false,
+        });
+      }
+    }
+    // Turn header back on when unmount
+    return drawerNavigator
+      ? () => {
+          drawerNavigator.setOptions({
+            headerShown: true,
+          });
+        }
+      : undefined;
+  }, [navigation, route]);
+
   const posts = useSelector(state => state.postsSlice);
   const postDetail = useSelector(state => state.postDetailSlice);
-
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
-
   const postId = route?.params.postId;
   // filter posts with postId to find selected post
   const post = posts.data.filter((item: any) => item.id === postId);
-  console.log(postId);
-  console.log(post);
+  // console.log(postId);
+  // console.log(post);
 
   const fetchPostsHandler = () => {
     const data = {

@@ -12,7 +12,7 @@ const Drawer = createDrawerNavigator();
 
 export default function MainStack() {
   return (
-    <Drawer.Navigator>
+    <Drawer.Navigator id="Drawer">
       <Drawer.Screen name="Users" component={UsersScreenNavigator} />
       <Drawer.Screen name="Posts" component={PostsScreenNavigator} />
       <Drawer.Screen name="Todos" component={TodosScreenNavigator} />
