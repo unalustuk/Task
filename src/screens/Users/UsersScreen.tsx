@@ -23,7 +23,7 @@ export default function UsersScreen() {
   useEffect(() => {
     fetchUsersHandler();
   }, [dispatch]);
-  console.log(users);
+  // console.log(users);
 
   return (
     <View style={styles.container}>

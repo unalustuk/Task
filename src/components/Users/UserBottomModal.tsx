@@ -40,16 +40,16 @@ export default UserBottomModal = observer(
     // console.log(user.id);
     const favUser = favoritesStore.favorites.filter(item => {
       // console.log(favUser.id);
-      console.log('item');
-      console.log(item);
-      console.log(item.id === user.id);
+      // console.log('item');
+      // console.log(item);
+      // console.log(item.id === user.id);
       if (item.id === user.id) {
         return item;
       }
     });
-    console.log('favUser');
-    console.log(favUser);
-    console.log(favoritesStore.favorites);
+    // console.log('favUser');
+    // console.log(favUser);
+    // console.log(favoritesStore.favorites);
 
     return (
       <Modal
