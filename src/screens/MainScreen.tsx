@@ -27,6 +27,8 @@ export default function MainScreen() {
       console.log(e);
     }
   };
+
+  // get favorites from local storage on opening
   useEffect(() => {
     getFavoritesFromLocalStorage();
     // deleteFavoritesFromLocalStorage();
