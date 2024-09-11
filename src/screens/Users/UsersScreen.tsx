@@ -36,6 +36,7 @@ export default function UsersScreen() {
           data={users.data}
           renderItem={({item}: any) => (
             <UserListItem
+              user={item}
               name={`${item.name}`}
               address={`${item.address.suite} ${item.address.street} ${item.address.city}`}
               company={item.company.name}

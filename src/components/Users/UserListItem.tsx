@@ -18,6 +18,7 @@ import PhotoQuestion from '../../assets/icons/photoQuestion.svg';
 import UserBottomModal from './UserBottomModal';
 
 interface UserListItemProps {
+  user: object;
   photo: string;
   name: string;
   email: string;
@@ -29,6 +30,7 @@ interface UserListItemProps {
 }
 
 export default function UserListItem({
+  user,
   photo,
   name,
   email,
@@ -84,6 +86,7 @@ export default function UserListItem({
         </View>
       </View>
       <UserBottomModal
+        user={user}
         modalHandler={modalHandler}
         isModalOpen={isModalOpen}
         name={name}
