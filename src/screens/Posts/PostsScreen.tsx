@@ -1,5 +1,5 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {themes} from '../../consts/styles';
 import PostListItem from '../../components/Posts/PostListItem';
 import {horizontalScale} from '../../utils/metrics';
@@ -9,6 +9,7 @@ import {fetchPosts} from '../../store/postsSlice';
 import LoadingModal from '../../components/LoadingModal/LoadingModal';
 import ErrorHandler from '../../components/Error/ErrorHandler';
 import List from '../../components/List/List';
+import Pagination from '../../components/Pagination/Pagination';
 
 interface PostScreenProps {
   route: any;
@@ -18,6 +19,22 @@ interface PostScreenProps {
 export default function PostsScreen({route, navigation}: PostScreenProps) {
   const posts = useSelector(state => state.postsSlice);
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+
+  const [pageNumber, setPageNumber] = useState(1);
+
+  const changePageHandler = (number: number) => {
+    setPageNumber(number);
+  };
+
+  //slicing data
+  const paginationData = posts.data?.slice(
+    pageNumber === 1 ? 0 : pageNumber * 10 - 10,
+    pageNumber * 10,
+  );
+
+  console.log(paginationData);
+
+  console.log(pageNumber);
 
   const fetchPostsHandler = () => {
     dispatch(fetchPosts());
@@ -43,7 +60,7 @@ export default function PostsScreen({route, navigation}: PostScreenProps) {
         <ErrorHandler />
       ) : (
         <List
-          data={posts.data}
+          data={paginationData}
           renderItem={({item}: any) => (
             <PostListItem
               body={item.body}
@@ -53,6 +70,13 @@ export default function PostsScreen({route, navigation}: PostScreenProps) {
               navigationHandler={navigationHandler}
             />
           )}
+          ListFooterComponent={
+            <Pagination
+              changePageHandler={changePageHandler}
+              pageNumber={pageNumber}
+              dataLength={posts.data.length}
+            />
+          }
         />
       )}
     </View>

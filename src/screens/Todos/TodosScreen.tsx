@@ -1,5 +1,5 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {themes} from '../../consts/styles';
 import {horizontalScale} from '../../utils/metrics';
 import TodoListItem from '../../components/Todos/TodoListItem';
@@ -9,12 +9,25 @@ import LoadingModal from '../../components/LoadingModal/LoadingModal';
 import ErrorHandler from '../../components/Error/ErrorHandler';
 import List from '../../components/List/List';
 import {fetchTodos} from '../../store/todosSlice';
+import Pagination from '../../components/Pagination/Pagination';
 
 export default function TodosScreen() {
-  // checking todos not connect to api
+  // checking todos not changing state of todos
 
   const todos = useSelector(state => state.todosSlice);
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+
+  const [pageNumber, setPageNumber] = useState(1);
+
+  const changePageHandler = (number: number) => {
+    setPageNumber(number);
+  };
+
+  //slicing data
+  const paginationData = todos.data?.slice(
+    pageNumber === 1 ? 0 : pageNumber * 10 - 10,
+    pageNumber * 10,
+  );
 
   const fetchTodosHandler = () => {
     const data = {
@@ -38,7 +51,7 @@ export default function TodosScreen() {
       ) : (
         <List
           removePaddingHorizontal={false}
-          data={todos.data}
+          data={paginationData}
           renderItem={({item}: any) => (
             <TodoListItem
               todo={item.title}
@@ -46,6 +59,13 @@ export default function TodosScreen() {
               isChecked={item.completed}
             />
           )}
+          ListFooterComponent={
+            <Pagination
+              changePageHandler={changePageHandler}
+              pageNumber={pageNumber}
+              dataLength={todos.data.length}
+            />
+          }
         />
       )}
     </View>

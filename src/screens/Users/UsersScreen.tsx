@@ -22,6 +22,14 @@ export default function UsersScreen() {
     setPageNumber(number);
   };
 
+  //slicing data
+  const paginationData = users.data?.slice(
+    pageNumber === 1 ? 0 : pageNumber * 10 - 10,
+    pageNumber * 10,
+  );
+
+  console.log(paginationData);
+
   console.log(pageNumber);
   const fetchUsersHandler = () => {
     dispatch(fetchUsers());
@@ -41,7 +49,7 @@ export default function UsersScreen() {
         <ErrorHandler />
       ) : (
         <List
-          data={users.data}
+          data={paginationData}
           renderItem={({item}: any) => (
             <UserListItem
               user={item}
