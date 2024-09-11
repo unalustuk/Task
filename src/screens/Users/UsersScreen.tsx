@@ -11,8 +11,13 @@ import ErrorHandler from '../../components/Error/ErrorHandler';
 import List from '../../components/List/List';
 import {horizontalScale} from '../../utils/metrics';
 import Pagination from '../../components/Pagination/Pagination';
+import SearchBar from '../../components/Inputs/SearchBar';
 
-export default function UsersScreen() {
+interface UsersScreenProps {
+  navigation: any;
+}
+
+export default function UsersScreen({navigation}: UsersScreenProps) {
   const users = useSelector(state => state.usersSlice);
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
 
@@ -28,9 +33,6 @@ export default function UsersScreen() {
     pageNumber * 10,
   );
 
-  console.log(paginationData);
-
-  console.log(pageNumber);
   const fetchUsersHandler = () => {
     dispatch(fetchUsers());
   };
@@ -40,6 +42,32 @@ export default function UsersScreen() {
     fetchUsersHandler();
   }, [dispatch]);
   // console.log(users);
+
+  // search input values
+
+  const [search, setSearch] = useState({
+    value: '',
+  });
+
+  function updateInputValueHandler(inputType: string, enteredValue: string) {
+    switch (inputType) {
+      case 'search':
+        setSearch(state => ({...state, value: enteredValue}));
+        break;
+    }
+  }
+  console.log(search);
+
+  //search bar added to top
+  navigation.getParent().setOptions({
+    headerTitle: () => (
+      <SearchBar
+        onUpdateValue={updateInputValueHandler}
+        value={search}
+        placeholder="Kullanıcı ara"
+      />
+    ),
+  });
 
   return (
     <View style={styles.container}>
